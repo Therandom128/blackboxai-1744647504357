@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoloQuester - Level Up Your Fitness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/phosphor-icons@1.4.2/src/css/icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                        dark: {
+                            900: '#0F0F11',
+                            800: '#151519',
+                            700: '#1C1C21',
+                            600: '#24242B',
+                            500: '#2D2D36',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'pulse-slow': 'pulse 3s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F0F11;
+            color: #F5F5F5;
+        }
+
+        .heading {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #8B5CF6, #EC4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .primary-gradient {
+            background: linear-gradient(135deg, #7C3AED, #8B5CF6);
+        }
+
+        .accent-gradient {
+            background: linear-gradient(135deg, #EC4899, #F43F5E);
+        }
+
+        .dark-gradient {
+            background: linear-gradient(180deg, #151519 0%, #0F0F11 100%);
+        }
+
+        .card {
+            background-color: #1C1C21;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.15);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7C3AED, #8B5CF6);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(124, 58, 237, 0.5);
+            color: #8B5CF6;
+            background-color: rgba(124, 58, 237, 0.1);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(124, 58, 237, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .phone-mockup {
+            border-radius: 40px;
+            padding: 10px;
+            background: linear-gradient(145deg, #0F0F11, #151519);
+            box-shadow:
+                10px 10px 30px rgba(0, 0, 0, 0.3),
+                -10px -10px 30px rgba(30, 30, 40, 0.1),
+                inset 0px 0px 0px 1px rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%;
+            height: 30px;
+            background-color: #151519;
+            border-radius: 0 0 12px 12px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            background-color: #0F0F11;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .phone-content {
+            background-color: #0F0F11;
+            min-height: 500px;
+            padding: 20px;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-purple {
+            background-color: rgba(124, 58, 237, 0.15);
+            color: #A78BFA;
+        }
+
+        .badge-green {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #34D399;
+        }
+
+        .badge-orange {
+            background-color: rgba(249, 115, 22, 0.15);
+            color: #FB923C;
+        }
+
+        .badge-red {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: #F87171;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #151519;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2D2D36;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8B5CF6;
+        }
+
+        /* Animation delay utilities */
+        .delay-100 {
+            animation-delay: 100ms;
+        }
+
+        .delay-200 {
+            animation-delay: 200ms;
+        }
+
+        .delay-300 {
+            animation-delay: 300ms;
+        }
+
+        .delay-400 {
+            animation-delay: 400ms;
+        }
+
+        .delay-500 {
+            animation-delay: 500ms;
+        }
+
+        /* Feature card hover effect */
+        .feature-icon {
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(-5deg);
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-900/80 backdrop-blur-lg border-b border-white/5">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="primary-gradient p-2 rounded-xl flex items-center justify-center shadow-lg">
+                    <i class="ph-fire-fill text-white text-xl"></i>
+                </div>
+                <h1 class="font-display text-2xl font-bold tracking-wide">SoloQuester</h1>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#features"
+                    class="text-white/80 hover:text-white transition-colors font-medium text-sm">Features</a>
+                <a href="#app" class="text-white/80 hover:text-white transition-colors font-medium text-sm">App</a>
+                <a href="#testimonials"
+                    class="text-white/80 hover:text-white transition-colors font-medium text-sm">Testimonials</a>
+                <a href="#pricing"
+                    class="text-white/80 hover:text-white transition-colors font-medium text-sm">Pricing</a>
+            </div>
+            <div class="hidden md:block">
+                <button class="btn-primary">Download</button>
+            </div>
+            <button class="md:hidden text-white text-xl">
+                <i class="ph-list"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 md:pt-40 md:pb-32 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-6xl">
+                <div class="absolute top-0 right-0 w-1/2 h-1/2 bg-primary-600/10 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-primary-600/10 rounded-full blur-3xl"></div>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="md:w-1/2 animate-fade-in-up">
+                    <div class="mb-4">
+                        <span class="badge badge-purple">Fitness RPG</span>
+                    </div>
+                    <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        <span class="gradient-text">Level Up</span> Your<br>Fitness Journey
+                    </h2>
+                    <p class="text-white/70 text-lg mb-8 max-w-lg leading-relaxed">
+                        Transform your workouts into epic quests with SoloQuester.
+                        Complete exercises, gain experience, and become stronger in real life.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <button class="btn-primary flex items-center justify-center">
+                            <i class="ph-play-fill mr-2 text-lg"></i>
+                            Download App
+                        </button>
+                        <button class="btn-secondary flex items-center justify-center">
+                            <i class="ph-info mr-2"></i>
+                            Learn More
+                        </button>
+                    </div>
+
+                    <div class="mt-10 flex items-center space-x-4">
+                        <div class="flex -space-x-2">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                                class="w-10 h-10 rounded-full border-2 border-dark-900" alt="User">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg"
+                                class="w-10 h-10 rounded-full border-2 border-dark-900" alt="User">
+                            <img src="https://randomuser.me/api/portraits/men/86.jpg"
+                                class="w-10 h-10 rounded-full border-2 border-dark-900" alt="User">
+                        </div>
+                        <div>
+                            <div class="flex items-center">
+                                <i class="ph-star-fill text-yellow-400 mr-1"></i>
+                                <i class="ph-star-fill text-yellow-400 mr-1"></i>
+                                <i class="ph-star-fill text-yellow-400 mr-1"></i>
+                                <i class="ph-star-fill text-yellow-400 mr-1"></i>
+                                <i class="ph-star-half-fill text-yellow-400 mr-2"></i>
+                                <span class="text-white font-semibold">4.9</span>
+                            </div>
+                            <p class="text-xs text-white/50">From 2,500+ reviews</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:w-1/2 flex justify-center animate-fade-in-up delay-200">
+                    <div class="phone-mockup w-[300px]">
+                        <div class="phone-screen">
+                            <div class="phone-content">
+                                <!-- Home Screen UI -->
+                                <div class="flex justify-between items-center mb-6">
+                                    <div>
+                                        <p class="text-primary-400 text-sm">Welcome back</p>
+                                        <h3 class="font-display text-xl font-bold">Hunter</h3>
+                                    </div>
+                                    <div class="relative">
+                                        <div
+                                            class="w-10 h-10 primary-gradient rounded-full flex items-center justify-center">
+                                            <span class="text-white font-bold">H</span>
+                                        </div>
+                                        <div
+                                            class="absolute -top-1 -right-1 w-5 h-5 accent-gradient rounded-full flex items-center justify-center">
+                                            <span class="text-white text-xs font-bold">3</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Level Info -->
+                                <div class="card p-4 mb-6">
+                                    <div class="flex items-center mb-2">
+                                        <div
+                                            class="w-12 h-12 rounded-full accent-gradient flex items-center justify-center mr-4">
+                                            <span class="text-white font-bold">Lv5</span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between mb-2">
+                                                <span class="text-sm">Level Progress</span>
+                                                <span class="text-xs text-white/50">320/500 XP</span>
+                                            </div>
+                                            <div class="w-full h-2 bg-dark-800 rounded-full">
+                                                <div class="h-full w-[64%] primary-gradient rounded-full"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Streak Card -->
+                                <div class="accent-gradient rounded-xl p-4 mb-6 shadow-lg">
+                                    <div class="flex items-center">
+                                        <div
+                                            class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
+                                            <i class="ph-fire-fill text-white text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-white/70 text-sm mb-1">Daily Streak</p>
+                                            <div class="flex items-baseline">
+                                                <span class="font-display text-white text-2xl font-bold mr-1">7</span>
+                                                <span class="text-white/70 text-sm">days</span>
+                                            </div>
+                                            <p class="text-white/50 text-xs">Keep it up! Complete a quest today.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Today's Quests -->
+                                <div class="mb-4 flex justify-between items-center">
+                                    <h3 class="font-display text-xl font-bold">Today's Quests</h3>
+                                    <a href="#" class="text-primary-400 text-sm font-semibold">See All</a>
+                                </div>
+
+                                <!-- Quest Card -->
+                                <div class="card p-4 mb-4">
+                                    <div class="flex items-center mb-4">
+                                        <div
+                                            class="w-12 h-12 rounded-lg bg-primary-600/20 flex items-center justify-center mr-4">
+                                            <i class="ph-barbell text-primary-400 text-xl"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between">
+                                                <div>
+                                                    <span class="badge badge-orange text-xs">Intermediate</span>
+                                                    <span class="text-xs text-white/50 ml-2">30 mins</span>
+                                                </div>
+                                                <span class="text-yellow-400 text-xs font-bold">+150 XP</span>
+                                            </div>
+                                            <h4 class="font-display text-lg font-bold mt-1">Strength Builder</h4>
+                                            <p class="text-xs text-white/50">4 exercises</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn-primary w-full py-2 text-sm">BEGIN QUEST</button>
+                                </div>
+
+                                <!-- Quest Card -->
+                                <div class="card p-4 mb-6">
+                                    <div class="flex items-center mb-4">
+                                        <div
+                                            class="w-12 h-12 rounded-lg bg-primary-600/20 flex items-center justify-center mr-4">
+                                            <i class="ph-activity text-primary-400 text-xl"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex justify-between">
+                                                <div>
+                                                    <span class="badge badge-green text-xs">Beginner</span>
+                                                    <span class="text-xs text-white/50 ml-2">15 mins</span>
+                                                </div>
+                                                <span class="text-yellow-400 text-xs font-bold">+75 XP</span>
+                                            </div>
+                                            <h4 class="font-display text-lg font-bold mt-1">Quick Cardio</h4>
+                                            <p class="text-xs text-white/50">3 exercises</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn-primary w-full py-2 text-sm">BEGIN QUEST</button>
+                                </div>
+
+                                <!-- Navigation Bar -->
+                                <div
+                                    class="fixed bottom-0 left-0 right-0 bg-dark-800/90 backdrop-blur-md p-4 flex justify-around rounded-t-xl border-t border-white/5">
+                                    <button class="text-primary-400 flex flex-col items-center">
+                                        <i class="ph-house-fill text-lg"></i>
+                                        <span class="text-xs mt-1">Home</span>
+                                    </button>
+                                    <button class="text-white/50 flex flex-col items-center">
+                                        <i class="ph-barbell text-lg"></i>
+                                        <span class="text-xs mt-1">Quests</span>
+                                    </button>
+                                    <button class="text-white/50 flex flex-col items-center">
+                                        <i class="ph-clock-counter-clockwise text-lg"></i>
+                                        <span class="text-xs mt-1">History</span>
+                                    </button>
+                                    <button class="text-white/50 flex flex-col items-center">
+                                        <i class="ph-user text-lg"></i>
+                                        <span class="text-xs mt-1">Profile</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-6xl">
+                <div class="absolute top-0 left-0 w-1/2 h-1/2 bg-primary-600/5 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 right-0 w-1/2 h-1/2 bg-primary-600/5 rounded-full blur-3xl"></div>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 animate-fade-in-up">
+                <span class="badge badge-purple inline-block mb-4">WHY CHOOSE US</span>
+                <h2 class="font-display text-4xl font-bold mb-4">Epic Features</h2>
+                <p class="text-white/60 max-w-2xl mx-auto">Experience a fitness journey like no other with these
+                    powerful features designed to keep you motivated and engaged.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="card p-6 feature-card animate-fade-in-up">
+                    <div
+                        class="primary-gradient w-16 h-16 rounded-2xl flex items-center justify-center mb-6 feature-icon">
+                        <i class="ph-game-controller text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">Quest-Based Workouts</h3>
+                    <p class="text-white/60">Transform boring exercises into exciting quests with clear objectives,
+                        rewards, and storylines inspired by Solo Leveling.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="card p-6 feature-card animate-fade-in-up delay-100">
+                    <div
+                        class="primary-gradient w-16 h-16 rounded-2xl flex items-center justify-center mb-6 feature-icon">
+                        <i class="ph-brain text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">AI-Powered Personalization</h3>
+                    <p class="text-white/60">Get workout recommendations tailored to your fitness level, goals, and
+                        preferences using advanced AI technology.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="card p-6 feature-card animate-fade-in-up delay-200">
+                    <div
+                        class="primary-gradient w-16 h-16 rounded-2xl flex items-center justify-center mb-6 feature-icon">
+                        <i class="ph-arrow-up text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">Leveling System</h3>
+                    <p class="text-white/60">Earn experience points, level up, and unlock new abilities as you progress
+                        in your fitness journey.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="card p-6 feature-card animate-fade-in-up delay-300">
+                    <div
+                        class="primary-gradient w-16 h-16 rounded-2xl flex items-center justify-center mb-6 feature-icon">
+                        <i class="ph-fire text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">Streak Tracking</h3>
+                    <p class="text-white/60">Build and maintain your daily workout streak for additional motivation and
+                        rewards.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="card p-6 feature-card animate-fade-in-up delay-400">
+                    <div
+                        class="primary-gradient w-16 h-16 rounded-2xl flex items-center justify-center mb-6 feature-icon">
+                        <i class="ph-chart-line-up text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">Detailed Progress Tracking</h3>
+                    <p class="text-white/60">Monitor your progress with comprehensive statistics, charts, and insights.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="card p-6 feature-card animate-fade-in-up delay-500">
+                    <div
+                        class="primary-gradient w-16 h-16 rounded-2xl flex items-center justify-center mb-6 feature-icon">
+                        <i class="ph-medal text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold mb-3">Achievement System</h3>
+                    <p class="text-white/60">Unlock badges and achievements as you reach fitness milestones and complete
+                        difficult challenges.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Screens -->
+    <section id="app" class="py-20 dark-gradient">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in-up">
+                <span class="badge badge-purple inline-block mb-4">THE APP</span>
+                <h2 class="font-display text-4xl font-bold mb-4">Experience The App</h2>
+                <p class="text-white/60 max-w-2xl mx-auto">Take a look at the beautifully designed interfaces that make
+                    your fitness journey enjoyable and engaging.</p>
+            </div>
+
+            <div class="flex overflow-x-auto py-12 space-x-6 scrollbar-hide snap-x">
+                <!-- Screen 1 -->
+                <div class="flex-shrink-0 snap-center animate-fade-in-up">
+                    <div class="phone-mockup w-[280px] md:w-[320px]">
+                        <div class="phone-screen">
+                            <img src="https://images.unsplash.com/photo-1594737626072-90dc274bc2bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=320&h=690&q=80"
+                                alt="App screen" class="w-full h-full object-cover">
+                            <div
+                                class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent">
+                                <h3 class="font-display text-xl font-bold mb-1">Quest Selection</h3>
+                                <p class="text-sm text-white/70">Choose quests that match your fitness level</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Screen 2 -->
+                <div class="flex-shrink-0 snap-center animate-fade-in-up delay-100">
+                    <div class="phone-mockup w-[280px] md:w-[320px]">
+                        <div class="phone-screen">
+                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=320&h=690&q=80"
+                                alt="App screen" class="w-full h-full object-cover">
+                            <div
+                                class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent">
+                                <h3 class="font-display text-xl font-bold mb-1">Workout Session</h3>
+                                <p class="text-sm text-white/70">Track progress during your workouts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Screen 3 -->
+                <div class="flex-shrink-0 snap-center animate-fade-in-up delay-200">
+                    <div class="phone-mockup w-[280px] md:w-[320px]">
+                        <div class="phone-screen">
+                            <img src="https://images.unsplash.com/photo-1607962837359-5e7e89f86776?ixlib=rb-4.0.3&auto=format&fit=crop&w=320&h=690&q=80"
+                                alt="App screen" class="w-full h-full object-cover">
+                            <div
+                                class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent">
+                                <h3 class="font-display text-xl font-bold mb-1">User Dashboard</h3>
+                                <p class="text-sm text-white/70">Monitor your stats and progress</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Screen 4 -->
+                <div class="flex-shrink-0 snap-center animate-fade-in-up delay-300">
+                    <div class="phone-mockup w-[280px] md:w-[320px]">
+                        <div class="phone-screen">
+                            <img src="https://images.unsplash.com/photo-1616279969862-befdb074ab8a?ixlib=rb-4.0.3&auto=format&fit=crop&w=320&h=690&q=80"
+                                alt="App screen" class="w-full h-full object-cover">
+                            <div
+                                class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black to-transparent">
+                                <h3 class="font-display text-xl font-bold mb-1">Level Up Celebration</h3>
+                                <p class="text-sm text-white/70">Get rewarded for your achievements</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-20 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-6xl">
+                <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-primary-600/5 rounded-full blur-3xl"></div>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16 animate-fade-in-up">
+                <span class="badge badge-purple inline-block mb-4">TESTIMONIALS</span>
+                <h2 class="font-display text-4xl font-bold mb-4">What Our Users Say</h2>
+                <p class="text-white/60 max-w-2xl mx-auto">Join thousands of fitness enthusiasts who are leveling up
+                    their fitness journey with SoloQuester.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="card p-6 animate-fade-in-up">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="User"
+                            class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Jason Miller</h4>
+                            <div class="flex text-yellow-400 mt-1">
+                                <i class="ph-star-fill"></i>
+                                <i class="ph-star-fill"></i>
+                                <i class="ph-star-fill"></i>
+                                <i class="ph-star-fill"></i>
+                                <i class="ph-star-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-white/70 italic">"SoloQuester has completely transformed my workouts. The quest-based
+                        system makes each session feel like an adventure rather than a chore. I've gained 5 pounds of
+                        muscle in just 2 months!"</p>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="card p-6 animate-fade-in-up delay-100">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/women/54.jpg" alt="User"
+                            class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Sarah Johnson</h4>
+                            <div class="flex text-yellow-400 mt-1">
+                                <i class="ph-star-fill"></i>
+                                <i class="ph-star-fill"></i>
+                                <i class="ph-star-fill"></i>
+                                <i class="ph-star-fill"></i>
+                                <i class="ph-star-half-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-white/70 italic">"As a Solo Leveling fan, this app is exactly what I needed to stay
+                        motivated. The leveling system gives me something to work toward, and I love seeing my progress
+                        visually represented."</p>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="card p-6 animate-fade-in-up delay-200">
+                    <div class="flex items-center mb-6">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User"
+                            class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Michael Chang</h4>
+                            <div class="flex text-yellow-400 mt-1">
+                                <i class="ph-star-fill"></i>
+                                <i class="ph-star-fill"></i>
+                                <i class="ph-star-fill"></i>
+                                <i class="ph-star-fill"></i>
+                                <i class="ph-star-fill"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-white/70 italic">"The AI recommendations are spot on. It's like having a personal
+                        trainer who knows exactly what I need. I've lost 15 pounds and my fitness level has improved
+                        dramatically since I started using SoloQuester."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-20 dark-gradient">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-in-up">
+                <span class="badge badge-purple inline-block mb-4">PRICING</span>
+                <h2 class="font-display text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
+                <p class="text-white/60 max-w-2xl mx-auto">Choose the plan that fits your fitness journey. No hidden
+                    fees, cancel anytime.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Free Plan -->
+                <div class="card p-6 border border-white/5 animate-fade-in-up">
+                    <div class="mb-6">
+                        <h3 class="font-display text-xl font-bold mb-2">Basic Hunter</h3>
+                        <p class="text-white/60 text-sm mb-4">Perfect for beginners</p>
+                        <div class="flex items-baseline">
+                            <span class="font-display text-4xl font-bold">Free</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Daily quests</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Basic progress tracking</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Level up system</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph-x-circle-fill text-red-400 mr-2"></i>
+                            <span class="text-white/50">Limited exercise library</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph-x-circle-fill text-red-400 mr-2"></i>
+                            <span class="text-white/50">Ads supported</span>
+                        </li>
+                    </ul>
+                    <button class="btn-secondary w-full">Get Started</button>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="card p-6 border-2 border-primary-500 relative animate-fade-in-up delay-100">
+                    <div
+                        class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary-500 px-4 py-1 rounded-full">
+                        <span class="text-white text-sm font-bold">MOST POPULAR</span>
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="font-display text-xl font-bold mb-2">Shadow Monarch</h3>
+                        <p class="text-white/60 text-sm mb-4">For serious fitness enthusiasts</p>
+                        <div class="flex items-baseline">
+                            <span class="font-display text-4xl font-bold">$9.99</span>
+                            <span class="text-white/60 ml-2">/month</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Everything in Basic</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Unlimited quests</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Advanced progress analytics</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Full exercise library</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Ad-free experience</span>
+                        </li>
+                    </ul>
+                    <button class="btn-primary w-full">Get Started</button>
+                </div>
+
+                <!-- Annual Plan -->
+                <div class="card p-6 border border-white/5 animate-fade-in-up delay-200">
+                    <div class="mb-6">
+                        <h3 class="font-display text-xl font-bold mb-2">Supreme Ruler</h3>
+                        <p class="text-white/60 text-sm mb-4">Best value for dedicated users</p>
+                        <div class="flex items-baseline">
+                            <span class="font-display text-4xl font-bold">$79.99</span>
+                            <span class="text-white/60 ml-2">/year</span>
+                        </div>
+                        <span class="badge badge-green mt-2 inline-block">Save 33%</span>
+                    </div>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Everything in Shadow Monarch</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Priority feature updates</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Custom workout creation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Premium support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph-check-circle-fill text-green-400 mr-2"></i>
+                            <span class="text-white/70">Exclusive content</span>
+                        </li>
+                    </ul>
+                    <button class="btn-secondary w-full">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-primary-700 to-primary-900 opacity-90"></div>
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+                alt="Background" class="w-full h-full object-cover mix-blend-overlay">
+        </div>
+
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <div class="max-w-2xl mx-auto animate-fade-in-up">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Ready to Level Up?</h2>
+                <p class="text-white/80 mb-10 text-lg">Download SoloQuester today and transform your fitness journey
+                    into an epic adventure.</p>
+
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <button class="btn-primary px-8 py-4 flex items-center justify-center">
+                        <i class="ph-google-play-logo mr-2 text-xl"></i>
+                        Google Play
+                    </button>
+                    <button class="bg-white text-primary-700 rounded-lg px-8
